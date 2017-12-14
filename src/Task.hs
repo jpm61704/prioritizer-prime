@@ -45,7 +45,11 @@ daysRemaining (Task _ (UTCTime due_day _) _ _ _) (UTCTime today _) = diffDays du
 pomodorosLeft :: Task -> Integer
 pomodorosLeft (Task _ _ _ c e) = e - c
 
-
+-- | the average number of pomodoros to complete per day if the task will be completed on time
+pomodorosPerDay :: Today -> Task -> Pomodoros
+pomodorosPerDay today task = quot pomo_left days_left
+  where days_left = daysRemaining task today
+        pomo_left = pomodorosLeft task 
 
 
 -- * Pomodoros
